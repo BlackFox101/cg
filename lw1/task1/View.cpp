@@ -2,7 +2,6 @@
 #include "ui_View.h"
 #include <QGraphicsView>
 #include <QTimer>
-#include <iostream>
 
 View::View(QWidget *parent)
     : QWidget(parent)

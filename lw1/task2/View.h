@@ -1,10 +1,9 @@
 #pragma once
 #include <QWidget>
 #include <QGraphicsScene>
+#include "MoveItem.h"
 
-QT_BEGIN_NAMESPACE
 namespace Ui { class View; }
-QT_END_NAMESPACE
 
 class View : public QWidget
 {
@@ -12,8 +11,11 @@ class View : public QWidget
 
 public:
     View(QWidget *parent = Q_NULLPTR);
+    ~View();
 
 private:
+    MoveItem* GetMoveItem();
+
     Ui::View* ui;
     QGraphicsScene* m_scene;
 };
