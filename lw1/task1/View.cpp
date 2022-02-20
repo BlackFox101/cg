@@ -1,53 +1,76 @@
 #include "View.h"
-#include "Letter.h"
+#include "ui_View.h"
+#include <QGraphicsView>
 #include <QTimer>
-#include <QGraphicsItem>
+#include <iostream>
 
 View::View(QWidget *parent)
-	: QMainWindow(parent)
-	, ui(new Ui::View)
-	, m_scene(new QGraphicsScene(this))
+    : QWidget(parent)
+    , ui(new Ui::View)
+    , m_scene(new QGraphicsScene(this))
 {
-	ui->setupUi(this);
-	setFixedSize(600, 500);
-	m_scene->setItemIndexMethod(QGraphicsScene::NoIndex);
-	m_scene->setSceneRect(0, 0, 500, 450);
+    ui->setupUi(this);
+    auto graphicsView = new QGraphicsView(this);
+    graphicsView->setAlignment(Qt::AlignCenter);                                    // Делаем привязку содержимого к центру
+    graphicsView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);    // Растягиваем содержимое по виджету
 
-	ui->graphicsView->resize(600, 500);
-	ui->graphicsView->setScene(m_scene);
+    graphicsView->setMinimumHeight(400);
+    graphicsView->setMinimumWidth(600);
+
+    ui->gridLayout->addWidget(graphicsView);
+    graphicsView->setScene(m_scene);
+
+	auto width = graphicsView->width() - 11;
+	auto height = graphicsView->height() - 11;
+	m_scene->setSceneRect(0, 0, width, height);
 
 	auto letter1 = GetLetterC();
 	auto letter2 = GetLetterA();
 	auto letter3 = GetLetterA();
 	letter3->moveBy(80, 0);
-	
+
+	m_items.push_back({ letter1, 0 });
+	m_items.push_back({ letter2, 0 });
+	m_items.push_back({ letter3, 0 });
+
 	m_scene->addItem(letter1);
 	m_scene->addItem(letter2);
 	m_scene->addItem(letter3);
 
-	//auto timer = new QTimer(this);
-	//connect(timer, SIGNAL(timeout()), this, SLOT(Move()));
-	//timer->start(1000/60);
+	auto timer = new QTimer(this);
+	connect(timer, SIGNAL(timeout()), this, SLOT(Move()));
+	timer->start(10);
+
 }
 
 View::~View()
 {
-
-	delete ui;
-}
-
-void View::paintEvent(QPaintEvent* event)
-{
-	//QPainter painter(this);
-	//painter.drawEllipse(QRect(20, 20, 100, 100));
+    delete ui;
 }
 
 void View::Move()
 {
+	float speed = 5;
+	float acceleration = -10;
 
+	for (size_t i = 0; i < m_items.size(); i++)
+	{
+		auto& curItem = m_items.at(i);
+		curItem.second = curItem.second + 0.01;
+
+		float v = speed + (acceleration * curItem.second / 2);
+		float newY = v * curItem.second;
+
+		curItem.first->moveBy(0, -newY);
+		if (curItem.first->y() >= 0)
+		{
+			curItem.second = 0;
+		}
+	}
 }
 
-QGraphicsItemGroup* View::GetLetterC()
+
+QGraphicsItem* View::GetLetterC()
 {
 	auto group = new QGraphicsItemGroup();
 	QPen pen;
@@ -72,7 +95,7 @@ QGraphicsItemGroup* View::GetLetterC()
 	return group;
 }
 
-QGraphicsItemGroup* View::GetLetterA()
+QGraphicsItem* View::GetLetterA()
 {
 	auto group = new QGraphicsItemGroup();
 	QPen pen;
