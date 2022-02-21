@@ -4,9 +4,7 @@
 #include <QGraphicsItem>
 #include <vector>
 
-QT_BEGIN_NAMESPACE
 namespace Ui { class View; }
-QT_END_NAMESPACE
 
 class View : public QWidget
 {

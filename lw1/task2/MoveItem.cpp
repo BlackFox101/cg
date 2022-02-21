@@ -75,15 +75,7 @@ QGraphicsItem* MoveItem::GetFence() const
 
 void MoveItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
-	auto eventPos = event->pos();
-	auto itemPos = pos();
-	auto scenePoss = scenePos();
-	auto y = mapToScene(event->pos());
-
-	auto temp = event->pos() - m_point;
-	auto mapToScenePos = mapToScene(temp);
-
-    this->setPos(mapToScene(temp));
+    this->setPos(mapToScene(event->pos() - m_point));
 }
 
 void MoveItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
@@ -99,7 +91,7 @@ void MoveItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 
 QRectF MoveItem::boundingRect() const
 {
-	return QRectF(150, 50, 60, 400);
+	return QGraphicsItemGroup::boundingRect();
 }
 
 void MoveItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)

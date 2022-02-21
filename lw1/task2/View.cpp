@@ -34,8 +34,3 @@ View::~View()
 {
     delete ui;
 }
-
-MoveItem* GetMoveItem()
-{
-    return new MoveItem();
-}
