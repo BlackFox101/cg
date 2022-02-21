@@ -10,11 +10,10 @@ class View : public QWidget
     Q_OBJECT
 
 public:
-    View(QWidget *parent = Q_NULLPTR);
+    View(QWidget *parent = nullptr);
     ~View();
 
 private:
-    MoveItem* GetMoveItem();
 
     Ui::View* ui;
     QGraphicsScene* m_scene;
