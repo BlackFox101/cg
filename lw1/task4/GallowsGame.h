@@ -1,54 +1,38 @@
 #pragma once
 #include <QObject>
-#include <string>
-#include <vector>
+#include "IGallowsGame.h"
+#include "Task.h"
 
-class GallowsGame : public QObject
+class GallowsGame : public QObject, public IGallowsGame
 {
 	Q_OBJECT
 public:
-	struct Letter
-	{
-		char letter;
-		bool isExist;
-	};
+	const size_t MAX_ERRORS_NUMBER = 7;
+	
+	GallowsGame(std::vector<Task> tasks);
 
-	GallowsGame();
+	void Restart() override;
+	Letter CheckLetter(char letter) override;
 
-	void Restart();
-
-	std::string GetCurrentWord();
-	std::string GetCurrentQuestion();
-
-	bool CheckLetter(char letter);
-
-	std::vector<Letter> GetUsedLetters();
-	std::vector<Letter> GetAllLetters();
-
-	size_t GetAttemptsNumber();
-	size_t GetErrorsNumber();
-	size_t GetMaxErrorNumber();
+	std::string GetCurrentAnswer() const override;
+	std::string GetCurrentQuestion() const override;
+	size_t GetMaxErrorNumber() const override;
+	size_t GetErrorsNumber() const override;
+	std::vector<Letter>  GetUsedLetters() const override;
 
 signals:
 	void DoOnGameRestart();
 	void DoOnGameOver(bool isWin);
 
 private:
-	void GenerateRandomTask();
+	void UpdateGameParams();
+	void AddUsedLetter(Letter letter);
+	void AddErrorNumber();
 
-	struct Task
-	{
-		std::string question;
-		std::string answer;
-	};
-
-	size_t m_taskNumber;
 	std::vector<Task> m_tasks;
-	std::vector<Letter> m_usedLetters;
-	std::vector<char> m_allLetters;
+	size_t m_currentTaskNumber;
 
-	const char m_letter[33] = {'À', 'Á', 'Â', 'Ã', 'Ä', 'Å', '¨', 'Æ', 'Ç', 'È', 'É',
-							   'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô',
-							   'Õ', 'Ö', '×', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'Þ', 'ß' };
+	std::vector<Letter> m_usedLetters;
+	size_t m_errorsNumbers;
 };
 
