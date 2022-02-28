@@ -17,42 +17,57 @@
       <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
       <Extensions>ui</Extensions>
     </Filter>
-    <Filter Include="Translation Files">
-      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
-      <Extensions>ts</Extensions>
+    <Filter Include="Common">
+      <UniqueIdentifier>{1fb096d2-0fc8-414e-a369-db57c75c2f72}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Model">
+    <Filter Include="src">
+      <UniqueIdentifier>{b6ac31f6-79ce-4cb4-96ca-a984f5130bf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Model">
       <UniqueIdentifier>{6b257501-a012-42cd-b7f4-b2c304c1d71a}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <QtRcc Include="View.qrc">
-      <Filter>Resource Files</Filter>
-    </QtRcc>
-    <QtUic Include="View.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtMoc Include="View.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <ClCompile Include="View.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <Filter Include="src\View">
+      <UniqueIdentifier>{c6d11f4d-4ab0-4015-9edc-c2d37ead0f39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\View\ViewWithPicture">
+      <UniqueIdentifier>{70f9ac45-7cc9-46d0-a44a-251d0325b5ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\View\ViewWithoutPicture">
+      <UniqueIdentifier>{20ec350e-4b18-46d5-b8ac-bce5cc316884}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GallowsGame.cpp">
-      <Filter>Model</Filter>
+      <Filter>src\Model</Filter>
     </ClCompile>
-    <ClCompile Include="Task.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="View.cpp">
+      <Filter>src\View</Filter>
+    </ClCompile>
+    <ClCompile Include="GallowsGameWithPicture.cpp">
+      <Filter>src\View\ViewWithPicture</Filter>
+    </ClCompile>
+    <ClCompile Include="GallowsGameWithoutPicture.cpp">
+      <Filter>src\View\ViewWithoutPicture</Filter>
+    </ClCompile>
+    <ClCompile Include="LetterButton.cpp">
+      <Filter>src\View\ViewWithPicture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="GallowsGame.h">
-      <Filter>Model</Filter>
+      <Filter>src\Model</Filter>
+    </QtMoc>
+    <QtMoc Include="View.h">
+      <Filter>src\View</Filter>
+    </QtMoc>
+    <QtMoc Include="GallowsGameWithPicture.h">
+      <Filter>src\View\ViewWithPicture</Filter>
+    </QtMoc>
+    <QtMoc Include="LetterButton.h">
+      <Filter>src\View\ViewWithPicture</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -60,13 +75,26 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IGallowsGame.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Letter.h">
-      <Filter>Header Files</Filter>
+      <Filter>src\Model</Filter>
     </ClInclude>
     <ClInclude Include="Task.h">
-      <Filter>Header Files</Filter>
+      <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="Letter.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="GallowsGameWithoutPicture.h">
+      <Filter>src\View\ViewWithoutPicture</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="View.ui">
+      <Filter>src\View</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="View.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
   </ItemGroup>
 </Project>

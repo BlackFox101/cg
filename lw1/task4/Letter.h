@@ -1,8 +1,9 @@
 #pragma once
 #include <optional>
+#include <vector>
 
 struct Letter
 {
 	char letter;
-	std::optional<size_t> position;
+	std::optional<std::vector<size_t>> position;
 };

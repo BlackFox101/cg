@@ -61,6 +61,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_);C:\Users\sad_a\Desktop\Study\cg\catch2</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -94,7 +95,9 @@
     <QtUic Include="View.ui" />
     <QtMoc Include="View.h" />
     <ClCompile Include="GallowsGame.cpp" />
-    <ClCompile Include="Task.cpp" />
+    <ClCompile Include="GallowsGameWithoutPicture.cpp" />
+    <ClCompile Include="GallowsGameWithPicture.cpp" />
+    <ClCompile Include="LetterButton.cpp" />
     <ClCompile Include="View.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -105,8 +108,11 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GallowsGameWithoutPicture.h" />
+    <QtMoc Include="GallowsGameWithPicture.h" />
     <ClInclude Include="IGallowsGame.h" />
     <ClInclude Include="Letter.h" />
+    <QtMoc Include="LetterButton.h" />
     <ClInclude Include="Task.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

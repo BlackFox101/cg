@@ -8,7 +8,7 @@ class IGallowsGame
 {
 public:
 	virtual void Restart() = 0;
-	virtual Letter CheckLetter(char letter) = 0;
+	virtual void CheckLetter(char letter) = 0;
 
 	virtual std::string GetCurrentAnswer() const = 0;
 	virtual std::string GetCurrentQuestion() const = 0;
@@ -19,6 +19,7 @@ public:
 
 	virtual void DoOnGameRestart() = 0;
 	virtual void DoOnGameOver(bool isWin) = 0;
+	virtual void DoOnResponseToCheckLetter(Letter letter) = 0;
 
 	virtual ~IGallowsGame() = default;
 };

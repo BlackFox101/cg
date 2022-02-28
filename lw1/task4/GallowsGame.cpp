@@ -1,9 +1,13 @@
 #include "GallowsGame.h"
 #include <stdexcept>
 
-GallowsGame::GallowsGame(std::vector<Task> tasks)
+GallowsGame::GallowsGame()
 {
-	m_tasks = tasks;
+	m_tasks.push_back({ "Marsupial Bear1", "KOALA" });
+	m_tasks.push_back({ "Marsupial Bear2", "KOALA" });
+	m_tasks.push_back({ "Marsupial Bear3", "KOALA" });
+	m_tasks.push_back({ "Marsupial Bear4", "KOALA" });
+	m_tasks.push_back({ "Marsupial Bear5", "KOALA" });
 
 	UpdateGameParams();
 }
@@ -15,43 +19,74 @@ void GallowsGame::Restart()
 	emit DoOnGameRestart();
 }
 
-Letter GallowsGame::CheckLetter(char letter)
+void GallowsGame::CheckLetter(char letter)
 {
-	auto answer = m_tasks.at(m_currentTaskNumber).answer;
-	auto pos = answer.find(letter);
+	if (m_letters.find(letter) == m_letters.end())
+	{
+		throw std::invalid_argument("Invalid character");
+	}
 
 	Letter usedLetter;
 	usedLetter.letter = letter;
-	if (pos != std::string::npos)
-	{	 
-		usedLetter.position = { pos };
+	usedLetter.position = GetCheckedLetterPosition(letter);
+
+	if (usedLetter.position == std::nullopt)
+	{
+		m_errorsNumbers++;
 	}
 	else
 	{
-		usedLetter.position = std::nullopt;
-		AddErrorNumber();
+		m_unsolvedLettersNumber -= usedLetter.position->size();
 	}
 
 	AddUsedLetter(usedLetter);
 
-	return usedLetter;
+	emit DoOnResponseToCheckLetter(usedLetter);
+
+	if (m_errorsNumbers >= MAX_ERRORS_NUMBER)
+	{
+		emit DoOnGameOver(false);
+	}
+
+	if (m_unsolvedLettersNumber <= 0)
+	{
+		emit DoOnGameOver(true);
+	}
+}
+
+std::optional<std::vector<size_t>> GallowsGame::GetCheckedLetterPosition(char letter)
+{
+	auto answer = m_tasks.at(m_currentTaskNumber).answer;
+	auto pos = answer.find(letter);
+
+	if (pos == std::string::npos)
+	{
+		return std::nullopt;
+	}
+
+	std::vector<size_t> positions;
+	do
+	{
+		positions.push_back(pos);
+		answer[pos] = GUESSED_LETTER;
+		pos = answer.find(letter);
+	} while (pos != std::string::npos);
+
+	return positions;
 }
 
 void GallowsGame::UpdateGameParams()
 {
-	m_currentTaskNumber = rand() % m_tasks.size() + 1;
+	srand(time(0));
+	m_currentTaskNumber = rand() % m_tasks.size();
 	m_usedLetters.clear();
 	m_errorsNumbers = 0;
+	m_unsolvedLettersNumber = m_tasks[m_currentTaskNumber].answer.size();
 }
 
 void GallowsGame::AddUsedLetter(Letter letter)
 {
 	m_usedLetters.push_back(letter);
-}
-
-void GallowsGame::AddErrorNumber()
-{
-	m_errorsNumbers++;
 }
 
 std::string GallowsGame::GetCurrentAnswer() const
@@ -77,4 +112,9 @@ size_t GallowsGame::GetErrorsNumber() const
 std::vector<Letter> GallowsGame::GetUsedLetters() const
 {
 	return m_usedLetters;
+}
+
+std::set<char> GallowsGame::GetAllLetters() const
+{
+	return m_letters;
 }
