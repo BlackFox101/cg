@@ -7,6 +7,7 @@ class LetterButton : public QPushButton
 public:
 	LetterButton(char letter, QWidget* parent = nullptr);
 	char GetLetter();
+	void Reset();
 
 public slots:
 	void SetExist();

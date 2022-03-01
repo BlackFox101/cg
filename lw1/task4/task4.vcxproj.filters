@@ -55,6 +55,9 @@
     <ClCompile Include="LetterButton.cpp">
       <Filter>src\View\ViewWithPicture</Filter>
     </ClCompile>
+    <ClCompile Include="AnswerLetter.cpp">
+      <Filter>src\View\ViewWithPicture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="GallowsGame.h">
@@ -67,6 +70,9 @@
       <Filter>src\View\ViewWithPicture</Filter>
     </QtMoc>
     <QtMoc Include="LetterButton.h">
+      <Filter>src\View\ViewWithPicture</Filter>
+    </QtMoc>
+    <QtMoc Include="AnswerLetter.h">
       <Filter>src\View\ViewWithPicture</Filter>
     </QtMoc>
   </ItemGroup>

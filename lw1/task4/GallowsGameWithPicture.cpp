@@ -1,12 +1,15 @@
 #include "GallowsGameWithPicture.h"
 #include <QGraphicsRectItem>
+#include <QMessageBox>
+#include <QHBoxLayout>
 
-GallowsGameWithPicture::GallowsGameWithPicture(std::shared_ptr<IGallowsGame> game, QLabel* m_questionLabel, QBoxLayout* m_lettersBox, QGraphicsView* m_graphicsView)
+GallowsGameWithPicture::GallowsGameWithPicture(std::shared_ptr<IGallowsGame> game, QLabel* m_questionLabel, QBoxLayout* m_lettersBox, QGraphicsView* m_graphicsView, QGroupBox* answerBox)
 	: m_game(game)
 	, m_questionLabel(m_questionLabel)
 	, m_lettersBox(m_lettersBox)
 	, m_graphicsView(m_graphicsView)
 	, m_buttons(new QButtonGroup())
+	, m_answerBox(answerBox)
 {
 	m_questionLabel->setText(QString::fromStdString(m_game->GetCurrentQuestion()));
 
@@ -26,7 +29,8 @@ GallowsGameWithPicture::GallowsGameWithPicture(std::shared_ptr<IGallowsGame> gam
 	connect(dynamic_cast<QObject*>(m_game.get()), SIGNAL(DoOnGameOver(bool)), this, SLOT(GameOver(bool)));
 
 	m_currentErrorNumber = 0;
-	Init();
+	InitPicture();
+	UpdateWord();
 }
 
 GallowsGameWithPicture::~GallowsGameWithPicture()
@@ -34,7 +38,7 @@ GallowsGameWithPicture::~GallowsGameWithPicture()
 	delete m_buttons;
 }
 
-void GallowsGameWithPicture::Init()
+void GallowsGameWithPicture::InitPicture()
 {
 	m_graphicsView->setAlignment(Qt::AlignCenter);
 	m_graphicsView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -107,6 +111,8 @@ void GallowsGameWithPicture::Init()
 		scene->addItem(item);
 		item->hide();
 	}
+
+
 }
 
 void GallowsGameWithPicture::CheckLetter(int id)
@@ -131,7 +137,6 @@ void GallowsGameWithPicture::ReactToCheckedLetter(Letter letter)
 
 void GallowsGameWithPicture::MarkLetter(LetterButton* button, Letter letter)
 {
-	button->setDisabled(true);
 	if (letter.position == std::nullopt)
 	{
 		button->SetNotExist();
@@ -140,7 +145,7 @@ void GallowsGameWithPicture::MarkLetter(LetterButton* button, Letter letter)
 	else
 	{
 		button->SetExist();
-		AddGuessedLetter();
+		AddGuessedLetter(letter);
 	}
 }
 
@@ -153,22 +158,91 @@ void GallowsGameWithPicture::AddError()
 	}
 }
 
-void GallowsGameWithPicture::AddGuessedLetter()
+void GallowsGameWithPicture::AddGuessedLetter(Letter letter)
 {
-	// TODO: отобразить отгаданную букву
+	auto positions = *(letter.position);
+	for (auto pos : positions)
+	{
+		m_answerLetters.at(pos)->SetLetter(letter.letter);
+	}
 }
 
 void GallowsGameWithPicture::GameOver(bool isWin)
 {
-	// TODO: Вывести сообще о завершении игры
+	QMessageBox msgBox;
+	if (isWin)
+	{
+		msgBox.setText("You won!");
+	}
+	else
+	{
+		msgBox.setText("You've lost!");
+	}
+	msgBox.setStandardButtons(QMessageBox::Reset | QMessageBox::Close);
+	msgBox.setIcon(QMessageBox::Information);
+	msgBox.setDefaultButton(QMessageBox::Ok);
+	int res = msgBox.exec();
+	if (res == QMessageBox::Reset)
+	{
+		m_game->Restart();
+	}
+	else
+	{
+		exit(EXIT_SUCCESS);
+	}
 }
 
 void GallowsGameWithPicture::Restart()
 {
-	// TODO: Обновить игру
+	UpdateView();
 }
 
 void GallowsGameWithPicture::UpdateView()
 {
-	// QGraphicsItem show() / hide();
+	m_currentErrorNumber = 0;
+	HidePicture();
+	UpdateButtons();
+	UpdateWord();
+}
+
+void GallowsGameWithPicture::UpdateButtons()
+{
+	for (auto& button : m_buttons->buttons())
+	{
+		auto currentButton = dynamic_cast<LetterButton*>(button);
+		currentButton->Reset();
+	}
+}
+
+void GallowsGameWithPicture::HidePicture()
+{
+	for (auto item : m_errorPicture)
+	{
+		item->hide();
+	}
+}
+
+void GallowsGameWithPicture::UpdateWord()
+{
+	if (m_answerBox->layout()) 
+	{
+		QLayoutItem* child;
+		while ((child = m_answerBox->layout()->takeAt(0)) != 0) {
+			delete child->widget();
+			delete child;
+		}
+		delete m_answerBox->layout();
+	}
+	m_answerLetters.clear();
+
+	QHBoxLayout* layout = new QHBoxLayout;
+	m_answerBox->setLayout(layout);
+
+	auto temp = m_game->GetCurrentAnswer();
+	for (size_t i = 0; i < temp.size(); i++)
+	{
+		AnswerLetter* button = new AnswerLetter();
+		m_answerLetters.push_back(button);
+		layout->addWidget(button);
+	}
 }

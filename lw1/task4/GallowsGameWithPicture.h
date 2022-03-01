@@ -4,9 +4,11 @@
 #include <QGraphicsView>
 #include <QButtonGroup>
 #include <memory>
+#include <QGroupBox>
 #include "IGallowsGame.h"
 #include "LetterButton.h"
 #include "Letter.h"
+#include "AnswerLetter.h"
 
 class GallowsGameWithPicture : public QObject
 {
@@ -15,7 +17,8 @@ public:
 	GallowsGameWithPicture(std::shared_ptr<IGallowsGame> game, 
 		QLabel* m_questionLabel, 
 		QBoxLayout* m_lettersBox,
-		QGraphicsView* m_graphicsView);
+		QGraphicsView* m_graphicsView,
+		QGroupBox* answerBox);
 	~GallowsGameWithPicture();
 
 private slots:
@@ -25,11 +28,15 @@ private slots:
 	void Restart();
 
 private:
-	void Init();
+	void InitPicture();
 	void MarkLetter(LetterButton* button, Letter letter);
 	void AddError();
-	void AddGuessedLetter();
+	void AddGuessedLetter(Letter letter);
 	void UpdateView();
+
+	void UpdateWord();
+	void HidePicture();
+	void UpdateButtons();
 
 	std::shared_ptr<IGallowsGame> m_game;
 	QButtonGroup* m_buttons;
@@ -37,7 +44,9 @@ private:
 	QLabel* m_questionLabel;
 	QBoxLayout* m_lettersBox;
 	QGraphicsView* m_graphicsView;
+	QGroupBox* m_answerBox;
 
+	std::vector<AnswerLetter*> m_answerLetters;
 	std::vector<QGraphicsItem*> m_errorPicture;
 	size_t m_currentErrorNumber;
 };

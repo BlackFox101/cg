@@ -7,7 +7,7 @@ View::View(std::shared_ptr<IGallowsGame> game, QWidget *parent)
 {
     ui->setupUi(this);
 
-    m_viewWithPicture = std::make_unique<GallowsGameWithPicture>(game, ui->questionLabel, ui->lettersLayout, ui->graphicsView);
+    m_viewWithPicture = std::make_unique<GallowsGameWithPicture>(game, ui->questionLabel, ui->lettersLayout, ui->graphicsView, ui->answerBox);
     m_viewWithoutPicture = std::make_unique<GallowsGameWithoutPicture>();
 }
 
