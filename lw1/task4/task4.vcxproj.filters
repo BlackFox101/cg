@@ -75,6 +75,9 @@
     <QtMoc Include="AnswerLetter.h">
       <Filter>src\View\ViewWithPicture</Filter>
     </QtMoc>
+    <QtMoc Include="GallowsGameWithoutPicture.h">
+      <Filter>src\View\ViewWithoutPicture</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -88,9 +91,6 @@
     </ClInclude>
     <ClInclude Include="Letter.h">
       <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="GallowsGameWithoutPicture.h">
-      <Filter>src\View\ViewWithoutPicture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

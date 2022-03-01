@@ -110,7 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="AnswerLetter.h" />
-    <ClInclude Include="GallowsGameWithoutPicture.h" />
+    <QtMoc Include="GallowsGameWithoutPicture.h" />
     <QtMoc Include="GallowsGameWithPicture.h" />
     <ClInclude Include="IGallowsGame.h" />
     <ClInclude Include="Letter.h" />

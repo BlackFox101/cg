@@ -15,6 +15,7 @@ public:
 	void Restart() override;
 	void CheckLetter(char letter) override;
 
+	size_t GetAttempsNumber() const override;
 	std::string GetCurrentAnswer() const override;
 	std::string GetCurrentQuestion() const override;
 	size_t GetMaxErrorNumber() const override;

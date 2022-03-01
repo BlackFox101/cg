@@ -19,6 +19,11 @@ void GallowsGame::Restart()
 	emit DoOnGameRestart();
 }
 
+size_t GallowsGame::GetAttempsNumber() const
+{
+	return MAX_ERRORS_NUMBER - m_errorsNumbers;
+}
+
 void GallowsGame::CheckLetter(char letter)
 {
 	if (m_letters.find(letter) == m_letters.end())

@@ -12,6 +12,7 @@ public:
 
 	virtual std::string GetCurrentAnswer() const = 0;
 	virtual std::string GetCurrentQuestion() const = 0;
+	virtual size_t GetAttempsNumber() const = 0;
 	virtual size_t GetMaxErrorNumber() const = 0;
 	virtual size_t GetErrorsNumber() const = 0;
 	virtual std::vector<Letter> GetUsedLetters() const = 0;
