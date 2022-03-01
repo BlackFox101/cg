@@ -12,5 +12,6 @@ AnswerLetter::AnswerLetter(QWidget* parent)
 
 void AnswerLetter::SetLetter(char letter)
 {
+	setFixedSize(size());
 	setText(QString::fromStdString(std::string(1, letter)));
 }

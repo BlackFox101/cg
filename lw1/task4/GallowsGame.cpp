@@ -3,11 +3,11 @@
 
 GallowsGame::GallowsGame()
 {
-	m_tasks.push_back({ "Marsupial Bear1", "KOALA" });
-	m_tasks.push_back({ "Marsupial Bear2", "KOALA" });
-	m_tasks.push_back({ "Marsupial Bear3", "KOALA" });
-	m_tasks.push_back({ "Marsupial Bear4", "KOALA" });
-	m_tasks.push_back({ "Marsupial Bear5", "KOALA" });
+	m_tasks.push_back({ "Marsupial Bear1", "KOALAO" });
+	m_tasks.push_back({ "Marsupial Bear2", "KOALAOO" });
+	m_tasks.push_back({ "Marsupial Bear3", "KOALAOOO" });
+	m_tasks.push_back({ "Marsupial Bear4", "KOALAOOOO" });
+	m_tasks.push_back({ "Marsupial Bear5", "KOALAOOOOO" });
 
 	UpdateGameParams();
 }
@@ -46,11 +46,13 @@ void GallowsGame::CheckLetter(char letter)
 	if (m_errorsNumbers >= MAX_ERRORS_NUMBER)
 	{
 		emit DoOnGameOver(false);
+		Restart();
 	}
 
 	if (m_unsolvedLettersNumber <= 0)
 	{
 		emit DoOnGameOver(true);
+		Restart();
 	}
 }
 

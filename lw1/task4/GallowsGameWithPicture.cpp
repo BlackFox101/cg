@@ -30,7 +30,7 @@ GallowsGameWithPicture::GallowsGameWithPicture(std::shared_ptr<IGallowsGame> gam
 
 	m_currentErrorNumber = 0;
 	InitPicture();
-	UpdateWord();
+	UpdateView();
 }
 
 GallowsGameWithPicture::~GallowsGameWithPicture()
@@ -199,6 +199,7 @@ void GallowsGameWithPicture::Restart()
 
 void GallowsGameWithPicture::UpdateView()
 {
+	m_questionLabel->setText(QString::fromStdString(m_game->GetCurrentQuestion()));
 	m_currentErrorNumber = 0;
 	HidePicture();
 	UpdateButtons();
