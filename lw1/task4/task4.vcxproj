@@ -99,6 +99,7 @@
     <ClCompile Include="GallowsGameWithoutPicture.cpp" />
     <ClCompile Include="GallowsGameWithPicture.cpp" />
     <ClCompile Include="LetterButton.cpp" />
+    <ClCompile Include="UsedLetter.cpp" />
     <ClCompile Include="View.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -109,6 +110,7 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="UsedLetter.h" />
     <QtMoc Include="AnswerLetter.h" />
     <QtMoc Include="GallowsGameWithoutPicture.h" />
     <QtMoc Include="GallowsGameWithPicture.h" />

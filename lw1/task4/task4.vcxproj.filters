@@ -58,6 +58,9 @@
     <ClCompile Include="AnswerLetter.cpp">
       <Filter>src\View\ViewWithPicture</Filter>
     </ClCompile>
+    <ClCompile Include="UsedLetter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="GallowsGame.h">
@@ -91,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="Letter.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="UsedLetter.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

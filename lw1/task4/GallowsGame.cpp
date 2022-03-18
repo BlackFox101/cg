@@ -3,11 +3,9 @@
 
 GallowsGame::GallowsGame()
 {
-	m_tasks.push_back({ "Marsupial Bear1", "KOALAO" });
-	m_tasks.push_back({ "Marsupial Bear2", "KOALAOO" });
-	m_tasks.push_back({ "Marsupial Bear3", "KOALAOOO" });
-	m_tasks.push_back({ "Marsupial Bear4", "KOALAOOOO" });
-	m_tasks.push_back({ "Marsupial Bear5", "KOALAOOOOO" });
+	m_tasks.push_back({ "Marsupial Bear", "KOALA" });
+	m_tasks.push_back({ "Which continent Russia sold to USA", "ALYASKA" });
+	m_tasks.push_back({ "Who is the richest person on the planet?", "ELON" });
 
 	UpdateGameParams();
 }

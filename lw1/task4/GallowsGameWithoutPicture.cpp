@@ -87,6 +87,8 @@ void GallowsGameWithoutPicture::UpdateUsedLetters()
 		button->setMaximumWidth(20);
 		layout->addWidget(button);
 	}
+	auto horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+	layout->addItem(horizontalSpacer);
 }
 
 void GallowsGameWithoutPicture::UpdateAttempsNumber()
