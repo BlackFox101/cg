@@ -1,10 +1,6 @@
 #pragma once
 #include "BaseWindow.h"
-
-struct Point
-{
-	float x, y;
-};
+#include "IFunction.h"
 
 class Window : public BaseWindow
 {
@@ -12,9 +8,8 @@ public:
 	using BaseWindow::BaseWindow;
 
 private:
+	// TODO: отдельный класс при для параболы, для координатной оси(мин шаг + параметры)
 	void OnRunStart() override;
 	void Draw(int width, int height) override;
-	void BuildCoordinateAxes(float maxX, float maxY);
-	void DrawParabola(float leftX, float rightX);
-	float Parabola(float x);
+	//void DrawFunction(std::shared_ptr<IFunction> function, float left, float right);
 };

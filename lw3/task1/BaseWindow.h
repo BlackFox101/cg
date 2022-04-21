@@ -1,7 +1,5 @@
 #pragma once
-#include <GLFW/glfw3.h>
-#include "GLFWInitializer.h"
-#include <stdexcept>
+#include "pch.h"
 
 class BaseWindow
 {
