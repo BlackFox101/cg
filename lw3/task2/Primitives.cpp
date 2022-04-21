@@ -1,8 +1,10 @@
 #include "Primitives.h"
 
-void DrawElliplse(glm::vec2 center, float xRadius, float yRadius, glm::vec3 color, float startAngle, float endAngle)
+void DrawElliplse(glm::vec2 center, float xRadius, float yRadius, glm::vec3 color, float rotationAngle, float startAngle, float endAngle)
 {
-	//StrokeEllipse(center.x, center.y, xRadius, yRadius);
+	glPushMatrix();
+	glTranslatef(center.x, center.y, 0);
+	glRotated(rotationAngle, 0.0, 0.0, 1.0);
 
 	const float step = static_cast<float>(2 * M_PI / 360);
 
@@ -10,16 +12,19 @@ void DrawElliplse(glm::vec2 center, float xRadius, float yRadius, glm::vec3 colo
 	// Эллипс представлет в виде "веера" из треугольников
 	glBegin(GL_TRIANGLE_FAN);
 	// Начальная точка веера располагается в центре эллипса
-	glVertex2d(center.x, center.y);
+	glVertex2d(0, 0);
 	// Остальные точки - равномерно по его границе
 	for (float angle = startAngle; angle <= endAngle; angle += step)
 	{
 		float a = (fabsf(static_cast<float>(angle - 2 * M_PI)) < 1e-5) ? 0 : angle;
 		const float dx = xRadius * cosf(a);
 		const float dy = yRadius * sinf(a);
-		glVertex2f(dx + center.x, dy + center.y);
+		glVertex2f(dx + 0, dy + 0);
 	}
 	glEnd();
+
+	glTranslatef(0, 0, 0);
+	glPopMatrix();
 }
 
 void DrawRectangle(glm::vec2 leftTop, float width, float height, glm::vec3 color)
