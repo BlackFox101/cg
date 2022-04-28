@@ -25,7 +25,9 @@ bool IsEvenPermutation(vector<float> permutation)
     return inversionCount % 2 == 0;
 }
 
-string VectorToString(vector<float> numbers)
+
+template <class T>
+string VectorToString(vector<T> numbers)
 {
     ostringstream output;
     for (size_t i = 0; i < numbers.size(); i++)
@@ -54,47 +56,42 @@ bool IsEvenPositiveNumbers(vector<float> numbers)
     return positiveNumbersCount % 2 == 0;
 }
 
-size_t Permutation(vector<float> numbers)
+size_t Permutation(vector<string> numbers)
 {
     size_t evensCount = 0;
 
     sort(numbers.begin(), numbers.end());
-
     do {
-        if (IsEvenPermutation(numbers) && IsEvenPositiveNumbers(numbers))
-        {
+        //if (IsEvenPermutation(numbers))
+        //{
             cout << VectorToString(numbers) << endl;
             evensCount++;
-        }
-        //cout << WriteVector(vertices) << " "
-        //    << (IsEvenPermutation(vertices) ? "Even" : "Uneven") << '\n';
+        //}
     } while (next_permutation(numbers.begin(), numbers.end()));
 
     return evensCount;
 }
 
+float CubicRoot(float number)
+{
+    return pow(number, 1.0 / 3.0);
+}
+
 int main()
 {
-    // (±2a, ±2, ±2b),
-    float m_fi = (1 + std::sqrt(5)) / 2;
-    float e = 1.7155615;
-    float a = e - 1 / e;
-    float b = e * m_fi + m_fi * m_fi + m_fi / e;
-
-    float a1 = 1; // 2 * a = 2.26
-    float b1 = 2; // 2 = 2
-    float c1 = 3; // 2 * b = 12.6
+    float a1 = 1.0; // 1
+    float b1 = 1.0 + sqrt(2.0); // 2.4
+    float c1 = 1.0 + 2.0*sqrt(2.0); // 3.8
 
     vector<vector<float>> vertices = {
-        {-a1, -b1, -c1},
-        {-a1, -b1,  c1},
-        {-a1,  b1, -c1},
-        {-a1,  b1,  c1},
-        { a1, -b1, -c1},
-        { a1, -b1,  c1},
-        { a1,  b1, -c1},
-        { a1,  b1,  c1},
+        {0, 0,  1},
+        {0,  1, 0},
+        {0,  1,  1},
+        { 1, 0, 0},
+        { 1, 0,  1},
+        { 1,  1, 0},
     };
+
 
     size_t evensCount = 0;
 
@@ -104,24 +101,11 @@ int main()
     }
     cout << evensCount << endl;
 
-    vertices = {
-        {-3, -2, -1},
-        {-2, -1, -3},
-        {-1, -3, -2},
-        {-1,  2,  3},
-        {2,  3, -1},
-        {3, -1,  2},
-        {-2,  1,  3},
-        {1,  3, -2},
-        {3, -2,  1},
-        {-3,  1,  2},
-        {1,  2, -3},
-        {2, -3,  1}
-    };
+    //cout << Permutation({2, 4, 1, 3}) << endl;
 
-    sort(vertices.begin(), vertices.end());
+    /*sort(vertices.begin(), vertices.end());
     for (auto t : vertices)
     {
         cout << VectorToString(t) << endl;
-    }
+    }*/
 }

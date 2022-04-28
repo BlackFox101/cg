@@ -28,13 +28,6 @@ Window::Window(int w, int h, const char* title)
 	: BaseWindow(w, h, title)
 	, m_polygon()
 {
-	m_polygon.SetSideColor(CubeSide::NEGATIVE_X, { 1, 0, 0, 1 });
-	m_polygon.SetSideColor(CubeSide::POSITIVE_X, { 0, 1, 0, 1 });
-	m_polygon.SetSideColor(CubeSide::NEGATIVE_Y, { 0, 0, 1, 1 });
-	m_polygon.SetSideColor(CubeSide::POSITIVE_Y, { 1, 1, 0, 1 });
-	m_polygon.SetSideColor(CubeSide::NEGATIVE_Z, { 0, 1, 1, 1 });
-	m_polygon.SetSideColor(CubeSide::POSITIVE_Z, { 1, 0, 1, 1 });
-
 	m_polygon.SetSpecularColor({ 1, 1, 1, 1 });
 	m_polygon.SetShininess(4.0f);
 }
