@@ -85,9 +85,9 @@ void Window::DrawLine(float startX, float endX, float y)
 void Window::InitShaders()
 {
 	// Создаем вершинный шейдер
-	GLuint vertexShader = Shader::LoadShader("shaders/sinVS.glsl", ShaderType::Vertex);
+	GLuint vertexShader = Shader::LoadShader("shaders/VS.glsl", ShaderType::Vertex);
 	// Создаем фрагментный шейдер шейдер
-	GLuint fragShader = Shader::LoadShader("shaders/sinFS.glsl", ShaderType::Fragment);
+	GLuint fragShader = Shader::LoadShader("shaders/FS.glsl", ShaderType::Fragment);
 
 	// Создаем программу
 	m_program = glCreateProgram();
